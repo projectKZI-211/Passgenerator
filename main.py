@@ -17,6 +17,8 @@ def save():
 
 #Функция очитски поля
 def delete():     #Функция очистки поля
+    global x
+    x = 0
     password_text.delete('1.0',END)
 
 #Функция генерации паролей
@@ -29,13 +31,13 @@ def generate():   #Функция генерации паролей
         x += 1
         for i in range(int(len_ent.get())):
             password += random.choice(chars)
-        password_text.insert(END,"Пароль" + '  ' + str(x) + ': ' + password + "\n")
+        password_text.insert(END, "Пароль" + '  ' + str(x) + ': ' + password + "\n")
 
 # Виджеты приложения
 password_text = Text(root, height=14, width=30)
 
-generate_btn = Button(text='Сгенерировать')
-delete_btn = Button(text='Очистить')
+generate_btn = Button(text='Сгенерировать', command=generate)
+delete_btn = Button(text='Очистить', command=delete)
 save_btn = Button(text='Сохранить', command=save)
 
 num_lbl = Label(text='Количество паролей')

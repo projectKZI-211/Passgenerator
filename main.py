@@ -1,10 +1,18 @@
 from tkinter import *
+from tkinter import filedialog
 root = Tk()
 root.title("Генератор паролей")
 root.resizable(width=False, height=False)   # запрет на изменение размера окна приложения
 w = (root.winfo_screenwidth())//2-225      # Размещение окна по центру экрана
 h = (root.winfo_screenheight())//2-162
 root.geometry("450x324+{}+{}".format(w, h))
+
+#Функция сохранения паролей в файл
+def save():
+    file=filedialog.asksaveasfilename(filetypes=(('TXT files', '*.txt'), ('ALL files', '*.*')), defaultextension='')
+    f=open(file,'w')
+    f.write(password_text.get(1.0,END))
+    f.close()from tkinter import filedialog
 
 # Виджеты приложения
 password_text = Text(root, height=14, width=30)

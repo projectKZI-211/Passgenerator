@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
+import random
 root = Tk()
 root.title("Генератор паролей")
 root.resizable(width=False, height=False)   # запрет на изменение размера окна приложения
@@ -13,6 +14,22 @@ def save():
     f=open(file,'w')
     f.write(password_text.get(1.0,END))
     f.close()
+
+#Функция очитски поля
+def delete():     #Функция очистки поля
+    password_text.delete('1.0',END)
+
+#Функция генерации паролей
+chars = '+-/*!&$#?=@<>abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'   #Библиотека символов
+x=0   #Переменная счёта паролей
+def generate():   #Функция генерации паролей
+    for n in range(int(num_ent.get())):
+        password =''
+        global x
+        x += 1
+        for i in range(int(len_ent.get())):
+            password += random.choice(chars)
+        password_text.insert(END,"Пароль" + '  ' + str(x) + ': ' + password + "\n")
 
 # Виджеты приложения
 password_text = Text(root, height=14, width=30)

@@ -12,14 +12,14 @@ def save():
     file=filedialog.asksaveasfilename(filetypes=(('TXT files', '*.txt'), ('ALL files', '*.*')), defaultextension='')
     f=open(file,'w')
     f.write(password_text.get(1.0,END))
-    f.close()from tkinter import filedialog
+    f.close()
 
 # Виджеты приложения
 password_text = Text(root, height=14, width=30)
 
 generate_btn = Button(text='Сгенерировать')
 delete_btn = Button(text='Очистить')
-save_btn = Button(text='Сохранить')
+save_btn = Button(text='Сохранить', command=save)
 
 num_lbl = Label(text='Количество паролей')
 num_ent = Entry(width=10, justify=CENTER)

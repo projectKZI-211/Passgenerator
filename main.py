@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import filedialog
 import random
 root = Tk()
+chars = 'abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890+-/*!&$#?=@<>'   #Библиотека символов
+
 root.title("Генератор паролей")
 root.resizable(width=False, height=False)   # запрет на изменение размера окна приложения
 w = (root.winfo_screenwidth())//2-258      # Размещение окна по центру экрана
@@ -11,27 +13,56 @@ root.geometry("516x338+{}+{}".format(w, h))
 #Функция сохранения паролей в файл
 def save():
     file=filedialog.asksaveasfilename(filetypes=(('TXT files', '*.txt'), ('ALL files', '*.*')), defaultextension='')
-    f=open(file,'w')
-    f.write(password_text.get(1.0,END))
-    f.close()
+    if(file != ''):
+        f=open(file,'w')
+        f.write(password_text.get(1.0,END))
+        f.close()
 
 #Функция очитски поля
-def delete():     #Функция очистки поля
+def delete():
     global x
     x = 0
     password_text.delete('1.0',END)
 
 #Функция генерации паролей
-chars = '+-/*!&$#?=@<>abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'   #Библиотека символов
 x=0   #Переменная счёта паролей
-def generate():   #Функция генерации паролей
-    for n in range(int(num_ent.get())):
-        password =''
-        global x
-        x += 1
-        for i in range(int(len_ent.get())):
-            password += random.choice(chars)
-        password_text.insert(END, "Пароль" + ' ' + str(x) + ': ' + password + "\n")
+def generate():
+    chars_gen = chars_text.get(1.0,'end-1c')
+    try:
+        for n in range(int(num_ent.get())):
+            password =''
+            global x
+            x += 1
+            for i in range(int(len_ent.get())):
+                password += random.choice(chars_gen)
+            password_text.insert(END, "Пароль" + ' ' + str(x) + ': ' + password + "\n")
+    except ValueError:
+        password_text.insert(END, "Не введена длина или количество паролей\n")
+
+    except IndexError:
+        password_text.insert(END, "Алфавит пуст\n")
+        x -= 1
+
+
+
+
+
+
+#Функция изменения алфавита
+def alphabetChange():
+    global chars
+    chars = ''
+    if(chk_sml_value.get()):
+        chars += 'abcdefghijklnopqrstuvwxyz'
+    if(chk_big_value.get()):
+        chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    if(chk_numb_value.get()):
+        chars +='1234567890'
+    if(chk_sim_value.get()):
+        chars += '+-/*!&$#?=@<>'
+    chars_text.delete('1.0', END)
+    chars_text.insert(END, chars)
+
 
 # Виджеты приложения
 password_text = Text(root, height=14, width=30)
@@ -46,17 +77,28 @@ num_ent = Entry(width=10, justify=CENTER)
 len_lbl = Label(text='Длина паролей')
 len_ent = Entry(width=10, justify=CENTER)
 
-chk_sml = Checkbutton()
+chk_sml_value = BooleanVar()
+chk_big_value = BooleanVar()
+chk_numb_value = BooleanVar()
+chk_sim_value = BooleanVar()
+
+chk_sml_value.set(True)
+chk_big_value.set(True)
+chk_numb_value.set(True)
+chk_sim_value.set(True)
+
+chk_sml = Checkbutton(root, var=chk_sml_value, command=alphabetChange)
 sml_lbl = Label(text='Маленькие буквы')
-chk_big = Checkbutton()
+chk_big = Checkbutton(root, var=chk_big_value, command=alphabetChange)
 big_lbl = Label(text='Заглавные буквы')
-chk_numb = Checkbutton()
+chk_numb = Checkbutton(root, var=chk_numb_value, command=alphabetChange)
 numb_lbl = Label(text='Цифры')
-chk_sim = Checkbutton()
+chk_sim = Checkbutton(root, var=chk_sim_value, command=alphabetChange)
 sim_lbl = Label(text='Знаки')
 
 chars_lbl = Label(text='Символы генерации паролей:')
 chars_text = Text(root, height=5, width=15)
+chars_text.insert(END, chars)
 
 scrollbar_pasw = Scrollbar(root, command=password_text.yview)
 scrollbar_chrs = Scrollbar(root, command=password_text.yview)

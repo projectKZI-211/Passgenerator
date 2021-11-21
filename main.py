@@ -38,15 +38,9 @@ def generate():
             password_text.insert(END, "Пароль" + ' ' + str(x) + ': ' + password + "\n")
     except ValueError:
         password_text.insert(END, "Не введена длина или количество паролей\n")
-
     except IndexError:
         password_text.insert(END, "Алфавит пуст\n")
         x -= 1
-
-
-
-
-
 
 #Функция изменения алфавита
 def alphabetChange():
@@ -63,9 +57,8 @@ def alphabetChange():
     chars_text.delete('1.0', END)
     chars_text.insert(END, chars)
 
-
 # Виджеты приложения
-password_text = Text(root, height=14, width=30)
+password_text = Text(root, height=14, width=37)
 
 generate_btn = Button(text='Сгенерировать', command=generate)
 delete_btn = Button(text='Очистить', command=delete)
@@ -104,12 +97,12 @@ scrollbar_pasw = Scrollbar(root, command=password_text.yview)
 scrollbar_chrs = Scrollbar(root, command=password_text.yview)
 
 # Расположение виджетов в окне приложения
-num_lbl.grid(row=0, column=0, padx=30, pady=5, sticky='w')
-num_ent.grid(row=0, column=1, padx=30, pady=5, sticky='w')
-len_lbl.grid(row=1, column=0, padx=30, pady=5, sticky='w')
-len_ent.grid(row=1, column=1, padx=30, pady=5, sticky='w')
+num_lbl.grid(row=0, column=0, pady=5, sticky='e')
+num_ent.grid(row=0, column=1, padx=(10, 30), pady=5, sticky='w')
+len_lbl.grid(row=1, column=0, pady=5, sticky='e')
+len_ent.grid(row=1, column=1, padx=(10, 30), pady=5, sticky='w')
 generate_btn.grid(row=2, column=0, padx=30, pady=5, sticky='e')
-delete_btn.grid(row=2, column=1, padx=30, pady=5, sticky='w')
+delete_btn.grid(row=2, column=1, padx=(40, 5), pady=5, sticky='w')
 save_btn.grid(row=2, column=3, columnspan=2, padx=50, pady=5, sticky='w')
 scrollbar_pasw.grid(row=3, column=2, rowspan=6, sticky='nws')
 password_text.grid(row=3, column=0, sticky='nsew', columnspan=2, rowspan=6)
@@ -122,8 +115,8 @@ chk_numb.grid(row=5, column=3, sticky='nes')
 numb_lbl.grid(row=5, column=4, sticky='nws')
 chk_sim.grid(row=6, column=3, sticky='nes')
 sim_lbl.grid(row=6, column=4, sticky='nws')
-chars_lbl.grid(row=7, column=3, columnspan=2, sticky='nws')
-chars_text.grid(row=8, column=3, columnspan=2, pady=5, sticky='nsew')
+chars_lbl.grid(row=7, column=3, columnspan=3, sticky='sew')
+chars_text.grid(row=8, column=3, columnspan=2, padx=(7, 0), sticky='nsew')
 chars_text.configure(yscrollcommand=scrollbar_chrs.set)
 scrollbar_chrs.grid(row=8, column=5, sticky='nws')
 

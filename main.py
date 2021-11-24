@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 import random
 root = Tk()
-chars = 'abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890+-/*!&$#?=@<>'   #Библиотека символов
+chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890+-/*!&$#?=@<>'   #Библиотека символов
 
 root.title("Генератор паролей")
 root.resizable(width=False, height=False)   # запрет на изменение размера окна приложения
@@ -22,12 +22,12 @@ def save():
 def delete():
     global x
     x = 0
-    password_text.delete('1.0',END)
+    password_text.delete('1.0', END)
 
 #Функция генерации паролей
 x=0   #Переменная счёта паролей
 def generate():
-    chars_gen = chars_text.get(1.0,'end-1c')
+    chars_gen = chars_text.get(1.0, 'end-1c')
     try:
         for n in range(int(num_ent.get())):
             password =''
@@ -47,7 +47,7 @@ def alphabetChange():
     global chars
     chars = ''
     if(chk_sml_value.get()):
-        chars += 'abcdefghijklnopqrstuvwxyz'
+        chars += 'abcdefghijklmnopqrstuvwxyz'
     if(chk_big_value.get()):
         chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     if(chk_numb_value.get()):
@@ -58,17 +58,17 @@ def alphabetChange():
     chars_text.insert(END, chars)
 
 # Виджеты приложения
-password_text = Text(root, height=14, width=37)
+password_text = Text(root, height=14, width=37, font="Verdana 9")
 
-generate_btn = Button(text='Сгенерировать', command=generate)
-delete_btn = Button(text='Очистить', command=delete)
-save_btn = Button(text='Сохранить', command=save)
+generate_btn = Button(text='Сгенерировать', command=generate, font="Verdana 10", bg='DeepSkyBlue')
+delete_btn = Button(text='Очистить', command=delete, font="Verdana 10", bg='DeepSkyBlue')
+save_btn = Button(text='Сохранить', command=save, font="Verdana 10", bg='DeepSkyBlue')
 
-num_lbl = Label(text='Количество паролей')
-num_ent = Entry(width=10, justify=CENTER)
+num_lbl = Label(text='Количество паролей', font="Verdana 10", fg='MidnightBlue', justify=CENTER)
+num_ent = Entry(width=10, justify=CENTER, font="Verdana 10")
 
-len_lbl = Label(text='Длина паролей')
-len_ent = Entry(width=10, justify=CENTER)
+len_lbl = Label(text='Длина паролей', font="Verdana 10", fg='MidnightBlue', justify=CENTER)
+len_ent = Entry(width=10, justify=CENTER, font="Verdana 10")
 
 chk_sml_value = BooleanVar()
 chk_big_value = BooleanVar()
@@ -81,16 +81,16 @@ chk_numb_value.set(True)
 chk_sim_value.set(True)
 
 chk_sml = Checkbutton(root, var=chk_sml_value, command=alphabetChange)
-sml_lbl = Label(text='Маленькие буквы')
+sml_lbl = Label(text='Маленькие буквы', font="Verdana 10", fg='MidnightBlue', justify=CENTER)
 chk_big = Checkbutton(root, var=chk_big_value, command=alphabetChange)
-big_lbl = Label(text='Заглавные буквы')
+big_lbl = Label(text='Заглавные буквы', font="Verdana 10", fg='MidnightBlue', justify=CENTER)
 chk_numb = Checkbutton(root, var=chk_numb_value, command=alphabetChange)
-numb_lbl = Label(text='Цифры')
+numb_lbl = Label(text='Цифры', font="Verdana 10", fg='MidnightBlue', justify=CENTER)
 chk_sim = Checkbutton(root, var=chk_sim_value, command=alphabetChange)
-sim_lbl = Label(text='Знаки')
+sim_lbl = Label(text='Знаки', font="Verdana 10", fg='MidnightBlue', justify=CENTER)
 
-chars_lbl = Label(text='Символы генерации паролей:')
-chars_text = Text(root, height=5, width=15)
+chars_lbl = Label(text='Символы генерации паролей:', font="Verdana 10", fg='MidnightBlue', justify=CENTER)
+chars_text = Text(root, height=5, width=15, font="Verdana 10")
 chars_text.insert(END, chars)
 
 scrollbar_pasw = Scrollbar(root, command=password_text.yview)
